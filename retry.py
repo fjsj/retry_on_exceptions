@@ -1,5 +1,5 @@
 '''
-Decorator for retrying a function N times when one of the specified exceptions is raised.
+Decorator for retrying a function N times by catching one of the specified exceptions and then retrying
 
 Author: fjsj - flaviojuvenal@gmail.com
 '''
