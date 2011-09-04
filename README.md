@@ -1,4 +1,4 @@
-# retry\_on\_exception decorator
+# retry\_on\_exceptions decorator
 Decorator for retrying a function N times when one of the specified exceptions is raised.
 Specially useful for functions that throws errors sporadically, like ones that depends on external resources as web APIs, databases, etc.
 
