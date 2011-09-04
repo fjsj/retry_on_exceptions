@@ -1,7 +1,8 @@
 # retry\_on\_exception decorator
 Decorator for retrying a function N times when one of the specified exceptions is raised.
+Specially useful for functions that throws errors sporadically, like ones which use external resources as web APIs, databases, etc.
 
-Usage (the code below prints "Got it on last try!"):
+Usage:
 
     from retry import retry_on_exceptions
 

@@ -1,5 +1,5 @@
 '''
-Retry on exception decorator.
+Decorator for retrying a function N times when one of the specified exceptions is raised.
 
 Author: fjsj - flaviojuvenal@gmail.com
 '''
