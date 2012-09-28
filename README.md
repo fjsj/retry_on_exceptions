@@ -2,6 +2,16 @@
 Decorator for retrying a function N times by catching one of the specified exceptions and then retrying.
 Specially useful for functions that throws errors sporadically, like ones that depends on external resources as web APIs, databases, etc.
 
+Installation:
+
+    pip install retry_on_exceptions
+
+or through source code:
+
+    git clone git://github.com/fjsj/retry_on_exceptions.git
+    cd retry_on_exceptions
+    python setup.py install
+
 Usage:
 
     from retry import retry_on_exceptions
