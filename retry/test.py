@@ -1,4 +1,14 @@
 from retry import retry_on_exceptions
+import logging
+
+# set root logger to console
+l = logging.getLogger()
+l.setLevel(logging.DEBUG)
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+fm = logging.Formatter('[%(levelname)s] %(asctime)s %(threadName)-10s - %(message)s')
+ch.setFormatter(fm)
+l.addHandler(ch)
 
 current_try = 0
 
