@@ -32,4 +32,3 @@ def retry_on_exceptions(types, tries):
             return fxn(*args, **kwargs)
         return f_retry
     return decorator
-

@@ -1,6 +1,8 @@
 from retry import retry_on_exceptions
 
 current_try = 0
+
+
 @retry_on_exceptions(types=[ZeroDivisionError, KeyError], tries=3)
 def test():
     global current_try
@@ -10,7 +12,7 @@ def test():
     elif current_try == 2:
         return dict()['key']
     else:
-        return "Got it on last try!"    
+        return "Got it on last try!"
 
 if __name__ == "__main__":
     print test()
