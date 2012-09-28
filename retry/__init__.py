@@ -4,9 +4,10 @@ Decorator for retrying a function N times by catching one of the specified excep
 Author: fjsj - flaviojuvenal@gmail.com
 '''
 import logging
+import time
 
 
-def retry_on_exceptions(types, tries):
+def retry_on_exceptions(types, tries, delay=0):
     class RetryException(Exception):  # Exception to activate retries
         pass
     
@@ -27,6 +28,9 @@ def retry_on_exceptions(types, tries):
                     return call_and_ignore_exceptions(types, fxn, *args, **kwargs)
                 except RetryException:
                     local_tries -= 1
+                    if delay:
+                        logging.debug("Waiting %s seconds to retry %s..." % (delay, fxn.__name__))
+                        time.sleep(delay)  # sleep only current thread
                     logging.debug("Retrying function %s" % fxn.__name__)
             
             logging.debug("Last try... and I will raise up whatever exception is raised")

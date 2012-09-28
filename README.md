@@ -21,10 +21,14 @@ Usage:
     if __name__ == "__main__":
         print test()
 
-The code above prints:
+The code above prints (if root logger is active and on debug level):
 
 - Retrying function test
 - Retrying function test
 - Last try... and I will raise up whatever exception is raised
 - Got it on last try!
+
+Optionally, you can also specify a delay (a float in seconds), making the current thread sleep between tries:
+    
+    @retry_on_exceptions(types=[urllib2.URLError], tries=3, delay=3.5)
 
