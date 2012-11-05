@@ -1,5 +1,6 @@
 from retry import retry_on_exceptions
 import logging
+from unittest import TestCase, main
 
 # set root logger to console
 l = logging.getLogger()
@@ -10,19 +11,23 @@ fm = logging.Formatter('[%(levelname)s] %(asctime)s %(threadName)-10s - %(messag
 ch.setFormatter(fm)
 l.addHandler(ch)
 
-current_try = 0
+class RetryTest(TestCase):
+    
+    def setUp(self):
+        self.current_try = 0
 
-
-@retry_on_exceptions(types=[ZeroDivisionError, KeyError], tries=3)
-def test():
-    global current_try
-    current_try += 1
-    if current_try == 1:
-        return 1 / 0
-    elif current_try == 2:
-        return dict()['key']
-    else:
-        return "Got it on last try!"
+    def test_retry(self):
+        @retry_on_exceptions(types=[ZeroDivisionError, KeyError], tries=3)
+        def f():
+            self.current_try += 1
+            if self.current_try == 1:
+                return 1 / 0
+            elif self.current_try == 2:
+                return dict()['key']
+            else:
+                return "Got it on last try!"
+        self.assertEquals(f(), "Got it on last try!")
+        self.assertEquals(self.current_try, 3)
 
 if __name__ == "__main__":
-    print test()
+    main()
