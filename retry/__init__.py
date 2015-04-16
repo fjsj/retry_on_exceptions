@@ -10,7 +10,7 @@ import time
 def retry_on_exceptions(types, tries, delay=0):
     class RetryException(Exception):  # Exception to activate retries
         pass
-    
+
     def call_and_ignore_exceptions(types, fxn, *args, **kwargs):
         try:
             return fxn(*args, **kwargs)
@@ -19,7 +19,7 @@ def retry_on_exceptions(types, tries, delay=0):
                 raise RetryException()
             else:
                 raise exc  # raise up unknown error
-    
+
     def decorator(fxn):
         def f_retry(*args, **kwargs):
             local_tries = tries  # make mutable
@@ -32,7 +32,7 @@ def retry_on_exceptions(types, tries, delay=0):
                         logging.debug("Waiting %s seconds to retry %s..." % (delay, fxn.__name__))
                         time.sleep(delay)  # sleep only current thread
                     logging.debug("Retrying function %s" % fxn.__name__)
-            
+
             logging.debug("Last try... and I will raise up whatever exception is raised")
             return fxn(*args, **kwargs)
         return f_retry
