@@ -11,8 +11,9 @@ fm = logging.Formatter('[%(levelname)s] %(asctime)s %(threadName)-10s - %(messag
 ch.setFormatter(fm)
 l.addHandler(ch)
 
+
 class RetryTest(TestCase):
-    
+
     def setUp(self):
         self.current_try = 0
 
