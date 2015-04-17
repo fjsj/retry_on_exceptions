@@ -29,5 +29,23 @@ class RetryTest(TestCase):
         self.assertEquals(f(), "Got it on last try!")
         self.assertEquals(self.current_try, 3)
 
+    def test_execute_functions_on_retry_fail_n_times(self):
+        self.current_try = 0
+
+        def function_to_be_executed():
+            return "Executed!"
+
+        @retry_on_exceptions(types=[ZeroDivisionError], tries=3, func=function_to_be_executed)
+        def fail():
+            self.current_try += 1
+            if self.current_try < 4:
+                return 1 / 0
+            else:
+                return "It will never get here!"
+
+        self.assertEquals(fail(), "Executed!")
+        self.assertEquals(self.current_try, 2)
+
+
 if __name__ == "__main__":
     main()
