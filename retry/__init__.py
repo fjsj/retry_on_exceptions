@@ -7,7 +7,7 @@ import logging
 import time
 
 
-def retry_on_exceptions(types, tries, delay=0):
+def retry_on_exceptions(types, tries, delay=0, func=None):
     class RetryException(Exception):  # Exception to activate retries
         pass
 
@@ -32,6 +32,9 @@ def retry_on_exceptions(types, tries, delay=0):
                         logging.debug("Waiting %s seconds to retry %s..." % (delay, fxn.__name__))
                         time.sleep(delay)  # sleep only current thread
                     logging.debug("Retrying function %s" % fxn.__name__)
+            else:
+                if func is not None:
+                    return func()
 
             logging.debug("Last try... and I will raise up whatever exception is raised")
             return fxn(*args, **kwargs)
