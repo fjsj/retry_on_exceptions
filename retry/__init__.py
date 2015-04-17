@@ -34,7 +34,7 @@ def retry_on_exceptions(types, tries, delay=0, func=None):
                     logging.debug("Retrying function %s" % fxn.__name__)
             else:
                 if func is not None:
-                    return func()
+                    func()
 
             logging.debug("Last try... and I will raise up whatever exception is raised")
             return fxn(*args, **kwargs)
